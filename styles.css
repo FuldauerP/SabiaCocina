@@ -189,4 +189,27 @@ body {
     font-size: 14px;
     color: #666;
   }
-  
+  /* Estilos para pantallas grandes */
+@media screen and (min-width: 1200px) {
+  #registro,
+  #pedido {
+      max-width: 800px;
+  }
+}
+
+/* Estilos para pantallas medianas */
+@media screen and (max-width: 1199px) {
+  #registro,
+  #pedido {
+      max-width: 600px;
+  }
+}
+
+/* Estilos para pantallas pequeñas (dispositivos móviles) */
+@media screen and (max-width: 600px) {
+  #registro,
+  #pedido {
+      max-width: 100%;
+      padding: 10px;
+  }
+}
