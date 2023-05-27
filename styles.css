@@ -1,0 +1,192 @@
+/* Estilos generales */
+    
+.required::after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+.error {
+        border: 1px solid red;
+    }
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3 {
+    margin: 0;
+  }
+  
+  .required::after {
+    content: "*";
+    color: red;
+    margin-left: 5px;
+  }
+  
+  /* Estilos del formulario de registro */
+  #registro {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  
+  #registro h2 {
+    margin-bottom: 20px;
+  }
+  
+  #registro label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  #registro input[type="text"],
+  #registro input[type="email"],
+  #registro select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  #registro button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  #registro #registro-mensaje {
+    display: none;
+    margin-top: 10px;
+  }
+  
+  /* Estilos del formulario de pedido */
+  /*#pedidos {
+   /* max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc; 
+    border-radius: 10px;
+    text-align: left;
+    box-sizing: border-box;
+}
+  
+  #pedido h2 {
+    margin-bottom: 20px;
+  }
+  
+  #pedido label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  #pedido select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  #pedido button[type="submit"],
+  #pedido button[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  /* Estilos de la lista de pedidos */
+  #pedidos {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  
+  #pedidos div {
+    margin-bottom: 10px;
+  }
+  
+  #pedidos ul {
+    padding-left: 20px;
+  }
+  
+  #pedidos button {
+    background-color: #FF0000;
+  }
+  .logo{
+    margin-top: 3rem;
+  }
+  
+  /* Media queries para hacer el diseño responsive */
+  @media (max-width: 600px) {
+    #registro, #pedido, #pedidos {
+      max-width: 100%;
+      margin: 20px 10px;
+    }
+  }
+   /* Estilos para los campos del formulario */
+   select,
+   input[type="text"] {
+       display: block;
+       width: 100%;
+       padding: 10px;
+       font-size: 16px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       margin-bottom: 10px;
+   }
+
+   /* Estilos para el botón del formulario */
+   button[type="submit"] {
+       padding: 10px 20px;
+       font-size: 16px;
+       background-color: #4CAF50;
+       color: white;
+       border: none;
+       border-radius: 4px;
+       cursor: pointer;
+   }
+
+   /* Estilos para las etiquetas del formulario */
+   label {
+       font-weight: bold;
+   }
+   .Realice_su_pedido,
+   .usuario_1,
+   .menu_sabiacocina{
+    margin-top: 1rem;
+   }
+   footer {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+  

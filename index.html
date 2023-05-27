@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sabia Cocina App</title>
+   
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <img src="SabiaCocinaLogo.png" class="logo" alt="Logo del restaurante">
+
+    <form id="registro">
+        <h2>Registro de Clientes </h2>
+        <label for="nombre">Nombre<span class="required"></span>:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="telefono">Teléfono<span class="required"></span>:</label>
+        <input type="text" id="telefono" name="telefono" pattern="[0-9]+" required>
+        <label for="direccion">Dirección<span class="required"></span>:</label>
+        <input type="text" id="direccion" name="direccion" required>
+        <label for="localidad">Localidad<span class="required"></span>:</label>
+        <input type="text" id="localidad" name="localidad" required>
+        <label for="barrio">Barrio<span class="required"></span>:</label>
+        <input type="text" id="barrio" name="barrio" required>
+        <button type="submit">Registrarme</button>
+        <p id="registro-mensaje" style="display: none;">Inscrito con éxito.</p>
+    </form>
+    <form id="pedido" style="display: none;">
+        <h2 class="Realice_su_pedido">Realice su pedido</h2>
+      <br><br>
+        <label for="usuario" class="usuario_1">Usuario<span class="required"></span>:</label>
+        <br><br>
+        <select id="usuario" name="usuario">
+          
+            <!-- Opciones de usuarios registrados se generarán aquí -->
+        </select>
+        <br><br>
+        <label for="menu" class="sabia_cocina">Menú SabiaCocina:<span class="required"></span>:</label>
+        <br><br>
+        <select id="menu" name="menu">
+            <option value="Menu1">Menu1</option>
+            <option value="Menu2">Menu2</option>
+            <option value="Menu3">Menu3</option>
+            <option value="Menu4">Menu4</option>
+            <option value="Menu5">Menu5</option>
+            
+        </select>
+      
+        <button type="submit">Seleccione... </button>
+       
+
+       <p>*LOS PRECIOS SE VERAN REFLEJADOS VIA WHATSAPP DESPUES DE ENVIAR LA ORDEN</p>
+       <div id="pedidos">
+        <!-- Los pedidos se mostrarán aquí -->
+    </div>
+    
+    </form>
+    
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&libraries=places"></script>
+    <script>
+
+        // Agrega tu código JavaScript aquí
+        class Restaurante {
+            constructor() {
+                this.usuarios = {};
+                this.menus = {"Menu1": 10, "Menu2": 12, "Menu3": 8,"Menu4":25,"Menu5":40};
+                this.registroActivo = true;
+                this.pedidoActivo = false;
+            }
+
+            borrarPantalla() {
+              document.getElementById("registro").style.display = "none";
+              document.getElementById("pedido").style.display = "block";
+          }
+  
+          registrarUsuario(nombre, telefono, direccion, localidad, barrio) {
+              if (!this.usuarios[nombre]) {
+                  this.usuarios[nombre] = {telefono: telefono, direccion: direccion, localidad: localidad, barrio: barrio, pedidos: []};
+                  document.getElementById("registro-mensaje").style.display = "block";
+                  document.getElementById("registro-mensaje").textContent = "Inscrito con éxito.";
+                  this.actualizarListaUsuarios();
+                  document.getElementById("registro").reset();
+                  this.borrarPantalla(); // Llama a la función borrarPantalla
+              } else {
+                  document.getElementById("registro-mensaje").style.display = "block";
+                  document.getElementById("registro-mensaje").textContent = "El usuario ya está registrado.";
+              }
+          }
+
+            hacerPedido(nombre, pedido) {
+                if (this.usuarios[nombre]) {
+                    if (this.menus[pedido]) {
+                        this.usuarios[nombre].pedidos.push(pedido);
+                        alert(`Pedido de ${pedido} realizado con éxito.`);
+                        this.verPedidos();
+                    } else {
+                        alert(`Lo siento, no tenemos ${pedido} en el menú.`);
+                    }
+                } else {
+                    alert(`Lo siento, el usuario ${nombre} no está registrado.`);
+                }
+            }
+
+            eliminarPedido(nombre, indice) {
+                if (this.usuarios[nombre]) {
+                    let pedidos = this.usuarios[nombre].pedidos;
+                    if (indice >= 0 && indice < pedidos.length) {
+                        pedidos.splice(indice, 1);
+                        this.verPedidos();
+                    } else {
+                        alert("El índice de pedido no es válido.");
+                    }
+                } else {
+                    alert(`Lo siento, el usuario ${nombre} no está registrado.`);
+                }
+            }
+
+            actualizarListaUsuarios() {
+                let selectUsuarios = document.querySelector("#usuario");
+                selectUsuarios.innerHTML = "";
+                for (let nombre in this.usuarios) {
+                    let optionUsuario = document.createElement("option");
+                    optionUsuario.value = nombre;
+                    optionUsuario.textContent = nombre;
+                    selectUsuarios.appendChild(optionUsuario);
+                }
+            }
+
+            verPedidos() {
+                let pedidosDiv = document.querySelector("#pedidos");
+                pedidosDiv.innerHTML = "";
+                let nombre = document.querySelector("#usuario").value;
+                let telefono = this.usuarios[nombre].telefono;
+                let direccion = this.usuarios[nombre].direccion;
+                let localidad = this.usuarios[nombre].localidad;
+                let barrio = this.usuarios[nombre].barrio;
+                let pedidos = this.usuarios[nombre].pedidos;
+                let usuarioDiv = document.createElement("div");
+                usuarioDiv.innerHTML = `<h3>${nombre}</h3>`;
+                usuarioDiv.innerHTML += `<p>Teléfono: ${telefono}</p>`;
+                usuarioDiv.innerHTML += `<p>Dirección: <a href="https://www.google.com/maps/place/${direccion}" target="_blank">${direccion}</a></p>`;
+                usuarioDiv.innerHTML += `<p>Localidad: ${localidad}</p>`;
+                usuarioDiv.innerHTML += `<p>Barrio: ${barrio}</p>`;
+                let pedidosUl = document.createElement("ul");
+                for (let i = 0; i < pedidos.length; i++) {
+                    let pedidoLi = document.createElement("li");
+                    pedidoLi.textContent = pedidos[i];
+                    let eliminarBtn = document.createElement("button");
+                    eliminarBtn.textContent = "Eliminar";
+                    eliminarBtn.dataset.indice = i;
+                    eliminarBtn.addEventListener("click", (event) => {
+                        let indice = event.target.dataset.indice;
+                        this.eliminarPedido(nombre, indice);
+                    });
+                    pedidoLi.appendChild(eliminarBtn);
+                    pedidosUl.appendChild(pedidoLi);
+                }
+                usuarioDiv.appendChild(pedidosUl);
+                pedidosDiv.appendChild(usuarioDiv);
+            }
+
+            mostrarFormularioPedido() {
+                document.getElementById("pedido").style.display = "block";
+            }
+        }
+
+        let restaurante = new Restaurante();
+
+        let formRegistro = document.querySelector("#registro");
+        formRegistro.addEventListener("submit", (event) => {
+            event.preventDefault();
+            let nombreInput = document.querySelector("#nombre");
+            let telefonoInput = document.querySelector("#telefono");
+            let direccionInput = document.querySelector("#direccion");
+            let localidadInput = document.querySelector("#localidad");
+            let barrioInput = document.querySelector("#barrio");
+            if (nombreInput.checkValidity() && telefonoInput.checkValidity() && direccionInput.checkValidity() && localidadInput.checkValidity() && barrioInput.checkValidity()) {
+                let nombre = nombreInput.value;
+                let telefono = telefonoInput.value;
+                let direccion = direccionInput.value;
+                let localidad = localidadInput.value;
+                let barrio = barrioInput.value;
+                restaurante.registrarUsuario(nombre, telefono, direccion, localidad, barrio);
+            } else {
+                if (!nombreInput.checkValidity()) {
+                    nombreInput.classList.add("error");
+                }
+                if (!telefonoInput.checkValidity()) {
+                    telefonoInput.classList.add("error");
+                }
+                if (!direccionInput.checkValidity()) {
+                    direccionInput.classList.add("error");
+                }
+                if (!localidadInput.checkValidity()) {
+                    localidadInput.classList.add("error");
+                }
+                if (!barrioInput.checkValidity()) {
+                    barrioInput.classList.add("error");
+                }
+            }
+        });
+
+        let formPedido = document.querySelector("#pedido");
+        formPedido.addEventListener("submit", (event) => {
+            event.preventDefault();
+            let nombre = document.querySelector("#usuario").value;
+            let pedido = document.querySelector("#menu").value;
+            restaurante.hacerPedido(nombre, pedido);
+        });
+        
+
+        restaurante.actualizarListaUsuarios();
+    </script>
+   
+    <footer>
+      <p>&copy; 2023 Fuldauer AppWeb. Todos los derechos reservados.</p>
+    </footer>
+    
+</body>
+
+</html>
+
+
+
+
+
+
