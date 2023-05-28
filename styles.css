@@ -13,6 +13,8 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+    
+    
   }
   
   h1, h2, h3 {
@@ -72,8 +74,8 @@ body {
   }
   
   /* Estilos del formulario de pedido */
-  /*#pedidos {
-   /* max-width: 600px;
+  #pedidos {
+    max-width: 600px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ccc; 
@@ -138,20 +140,15 @@ body {
     margin-top: 3rem;
   }
   
-  /* Media queries para hacer el diseño responsive */
-  @media (max-width: 600px) {
-    #registro, #pedido, #pedidos {
-      max-width: 100%;
-      margin: 20px 10px;
-    }
-  }
+ 
+  
    /* Estilos para los campos del formulario */
    select,
    input[type="text"] {
        display: block;
        width: 100%;
        padding: 10px;
-       font-size: 16px;
+       font-size: 18px;
        border: 1px solid #ccc;
        border-radius: 4px;
        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -161,7 +158,7 @@ body {
    /* Estilos para el botón del formulario */
    button[type="submit"] {
        padding: 10px 20px;
-       font-size: 16px;
+       font-size: 18px;
        background-color: #4CAF50;
        color: white;
        border: none;
@@ -189,27 +186,12 @@ body {
     font-size: 14px;
     color: #666;
   }
-  /* Estilos para pantallas grandes */
-@media screen and (min-width: 1200px) {
-  #registro,
-  #pedido {
-      max-width: 800px;
-  }
+#registro,
+#pedido,
+#pedidos {
+    max-width: 100%;
+}
+#pedidos {
+    max-width: 100%;
 }
 
-/* Estilos para pantallas medianas */
-@media screen and (max-width: 1199px) {
-  #registro,
-  #pedido {
-      max-width: 600px;
-  }
-}
-
-/* Estilos para pantallas pequeñas (dispositivos móviles) */
-@media screen and (max-width: 600px) {
-  #registro,
-  #pedido {
-      max-width: 100%;
-      padding: 10px;
-  }
-}
